@@ -20,4 +20,4 @@ app.get(`/greeting/:name`, ( req, res ) => {
 
 app.listen(PORT, ( req, res ) => {
     console.log(`Server is running on port ${PORT}!! Go catch it`)
-} )
+} ) 
