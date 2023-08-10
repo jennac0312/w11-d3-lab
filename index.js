@@ -1,14 +1,16 @@
+// from week 11 day 2 canvas
 const express = require("express")
 const app = express()
 
 const PORT = 3000
 
 const magicResponses = require("./models/magicResponses")
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  } // mdn thank you
+} // mdn thank you
 
 // ROUTES -----------------------------------------------
 app.get('/greeting', ( req, res ) => {
@@ -20,21 +22,19 @@ app.get(`/greeting/:name`, ( req, res ) => {
 })
 
 app.get('/tip/:total/:tipPercentage', ( req, res ) => {
-    res.send(`<h1> Expected tip is: ${(req.params.total * (req.params.tipPercentage / 100)) } </h1>`)
+    let tip = req.params.total * ( req.params.tipPercentage / 100 )
+
+    res.send(`<h1> Expected tip is: ${tip} </h1>`)
+
+    // res.send(`<h1> Expected tip is: ${req.params.total * ( req.params.tipPercentage / 100 )} </h1>`)
 } )
 
 app.get('/magic/:question', ( req, res ) => {
     res.send(`
-    <h1> QUESTION: <span style="font-weight: normal">${req.params.question}</span> </h1>
-    <p style="text-align: center"> ${magicResponses[getRandomInt(0, magicResponses.length)]} <p>
+    <h1 style="text-align:center"> QUESTION: <span style="font-weight: normal;">${req.params.question}</span> </h1>
+    <p style="text-align: center; color: green; font-size: 40px"> ${magicResponses[getRandomInt(0, magicResponses.length)]} <p>
     `)
-
 })
-
-
-
-
-
 
 app.listen(PORT, ( req, res ) => {
     console.log(`Server is running on port ${PORT}!! Go catch it`)
